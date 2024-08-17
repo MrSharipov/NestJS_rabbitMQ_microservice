@@ -9,3 +9,5 @@ nest g library common
 https://github.com/bitnami/containers/blob/main/bitnami/mongodb/docker-compose-replicaset.yml
 
 docker compose up --build -V
+
+https://www.youtube.com/watch?v=yuVVKB0EaOQ
