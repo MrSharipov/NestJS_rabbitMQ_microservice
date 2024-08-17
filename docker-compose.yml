@@ -20,9 +20,9 @@ services:
   mongo:
     image: 'mongo:7.0'
     ports:
-      - 27018:27017
+      - 27017:27017
     volumes:
-      - my-data:/var/lib/mongodb/data
+      - mongodb_master_data:/var/lib/mongodb/data
 
   mongo-express:
     image: 'mongo-express:1.0.2'
@@ -33,4 +33,5 @@ services:
       ME_CONFIG_BASICAUTH_PASSWORD: password
 
 volumes:
-  my-data:
+  mongodb_master_data:
+    driver: local
