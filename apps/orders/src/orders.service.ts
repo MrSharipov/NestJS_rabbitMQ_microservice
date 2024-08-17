@@ -11,12 +11,13 @@ export class OrdersService {
     private readonly orderRepository: OrdersRepository,
     @Inject(BILLING_SERIVE) private billingClient: ClientProxy,
   ) {}
-  async createOrder(request: CreateOrderRequestDto) {
+  async createOrder(request: CreateOrderRequestDto, authentication: string) {
     try {
       const order = await this.orderRepository.create(request);
       await lastValueFrom(
         this.billingClient.emit('order_created', {
           request,
+          Authentication: authentication,
         }),
       );
       return order;
