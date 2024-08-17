@@ -1,5 +1,3 @@
-# docker-compose.yml
-version: '3.8'
 services:
   orders:
     build:
@@ -12,6 +10,7 @@ services:
     depends_on:
       - mongo
       - billing
+      - auth
       - rabbitmq
     volumes:
       - .:/usr/src/app
@@ -27,6 +26,23 @@ services:
     command: npm run start:dev billing
     env_file:
       - ./apps/billing/.env
+    depends_on:
+      - mongo
+      - rabbitmq
+      - auth
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: npm run start:dev auth
+    ports:
+      - '3001:3001'
+    env_file:
+      - ./apps/auth/.env
     depends_on:
       - mongo
       - rabbitmq
